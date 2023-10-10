@@ -3,39 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Abastece_version0._2.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <Grid RowDefinitions="*,*,*" BackgroundColor="LightSteelBlue">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+        <ContentView Grid.Row="0">
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+        </ContentView>
+        <ContentView Grid.Row="1" x:Name="ContentViewContainer">
+            <StackLayout Padding="10" Margin="50">
+                <Frame CornerRadius="3" Padding="0" HeightRequest="45" WidthRequest="400" >
+                    <StackLayout>
+                        <BoxView Color="Gray" HeightRequest="0" HorizontalOptions="FillAndExpand" />
+                        <Entry x:Name="txtIP" Placeholder="Digite o IP aqui" BackgroundColor="White" TextColor="Black" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+                </Frame>
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+                <Label x:Name="lblAlert" HorizontalTextAlignment="Center" TextColor="Black" Margin="5"/>
+                <AbsoluteLayout HorizontalOptions="Center" HeightRequest="50">
+                    <Button x:Name="Start" Text="Iniciar" TextColor="Black" Clicked="OnButton" AbsoluteLayout.LayoutBounds="0.5, 0, 0.5, 1" AbsoluteLayout.LayoutFlags="All" />
+                    <ActivityIndicator x:Name="Loader" IsRunning="False" IsVisible="false" Color="SteelBlue" AbsoluteLayout.LayoutBounds="0.5, 0, 0.5, 1" AbsoluteLayout.LayoutFlags="All" />
+                </AbsoluteLayout>
+            </StackLayout>
+        </ContentView>
+        <ContentView Grid.Row="2">
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+        </ContentView>
 
-        </VerticalStackLayout>
-    </ScrollView>
+    </Grid>
 
 </ContentPage>
