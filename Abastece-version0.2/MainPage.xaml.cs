@@ -3,6 +3,8 @@ using System;
 using Renci.SshNet;
 using System.Text.RegularExpressions;
 using System.Net.NetworkInformation;
+using System.Collections.Generic;
+//using Java.Util.Concurrent.Atomic;
 //using ThreadNetwork;
 
 namespace Abastece_version0._2
@@ -42,8 +44,13 @@ namespace Abastece_version0._2
                     {
                         //lbl.Text = RangerIp().ToString();
                         //ValidateService(client, "openvpn", lbl);
-                        ValidateEqui(client, RangerIp().ToString(), lbl);                         
+                        //ValidateEqui(client, RangerIp().ToString(), lbl);
 
+
+
+
+                        lbl.Text = Coleta_Serv(Valida_EquipConectado(client))[0];
+                        //lbl.Text = Valida_EquipConectado(client)[1];
                     }
                     else
                     {
@@ -55,6 +62,61 @@ namespace Abastece_version0._2
             {
                 lbl.Text = $"Ocorreu um erro ao conectar-se ao servidor SSH: {ex.Message}";
             }
+        }
+
+        private string[] Coleta_Serv(string[] ips)
+        {
+            List<string> ipsTerminadosCom2x = new List<string>();
+
+            foreach (string ip in ips)
+            {
+                string[] partes = ip.Split('.');
+                if (partes.Length == 4)
+                {
+                    string ultimoOcteto = partes[3];
+                    //if (ultimoOcteto.Length == 2)
+                    if (ultimoOcteto.Length > 0)
+                    {
+                        if (int.TryParse(ultimoOcteto, out int numero))
+                        {
+                            //if (numero >= 21 && numero <= 29)
+                            if (numero == 1 || numero == 111)
+                            {
+                                ipsTerminadosCom2x.Add(ip);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return ipsTerminadosCom2x.ToArray();
+        }
+
+        private string[] Valida_EquipConectado(SshClient client)
+        {
+            string command = "ip neigh";
+            var cmd = client.RunCommand(command);
+
+            // Expressão regular para encontrar endereços IPv4
+            string padraoIp = @"\b(?:\d{1,3}\.){3}\d{1,3}\b";
+
+            // Criar um objeto Regex com o padrão
+            Regex regex = new Regex(padraoIp);
+
+            // Encontrar todas as correspondências na string
+            MatchCollection correspondencias = regex.Matches(cmd.Result.ToString());
+
+            // Criar uma lista para armazenar os endereços IP encontrados
+            List<string> ipsEncontrados = new List<string>();
+
+            // Adicionar os endereços IP à lista
+            foreach (Match correspondencia in correspondencias)
+            {
+                ipsEncontrados.Add(correspondencia.Value);
+            }
+
+            // Converter a lista para um array e retornar
+            return ipsEncontrados.ToArray();
         }
 
         private string RangerIp()
