@@ -42,7 +42,7 @@ namespace Abastece_version0._2
                     {
                         //lbl.Text = RangerIp().ToString();
                         //ValidateService(client, "openvpn", lbl);
-                        //ValidateEqui(client, RangerIp().ToString(), lbl);                         
+                        ValidateEqui(client, RangerIp().ToString(), lbl);                         
 
                     }
                     else

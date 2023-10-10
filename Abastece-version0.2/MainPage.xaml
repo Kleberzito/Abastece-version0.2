@@ -3,30 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Abastece_version0._2.MainPage">
 
-    <Grid RowDefinitions="*,*,*" BackgroundColor="LightSteelBlue">
+    <Grid RowDefinitions="*,*,*" BackgroundColor="LightSteelBlue"> <!-- Define numeros de linhas -->
+        
+        <ContentView Grid.Row="1" >
+            <Grid ColumnDefinitions="*,*,*"> <!-- Define numeros de colunas na linha 2 -->                
+                <StackLayout Grid.Column="1" >
 
-        <ContentView Grid.Row="0">
+                    <Frame CornerRadius="3" Padding="0" BorderColor="LightSteelBlue">
+                        <StackLayout BackgroundColor="LightSteelBlue">
+                            <BoxView Color="Gray" HorizontalOptions="FillAndExpand" />
+                            <Entry x:Name="txtIP" Placeholder="Digite o IP aqui" BackgroundColor="White" TextColor="Black" 
+                                   HorizontalTextAlignment="Center" HeightRequest="45" WidthRequest="310" />
+                        </StackLayout>
+                    </Frame>
 
-        </ContentView>
-        <ContentView Grid.Row="1" x:Name="ContentViewContainer">
-            <StackLayout Padding="10" Margin="50">
-                <Frame CornerRadius="3" Padding="0" HeightRequest="45" WidthRequest="400" >
-                    <StackLayout>
-                        <BoxView Color="Gray" HeightRequest="0" HorizontalOptions="FillAndExpand" />
-                        <Entry x:Name="txtIP" Placeholder="Digite o IP aqui" BackgroundColor="White" TextColor="Black" HorizontalTextAlignment="Center" />
-                    </StackLayout>
-                </Frame>
-
-                <Label x:Name="lblAlert" HorizontalTextAlignment="Center" TextColor="Black" Margin="5"/>
-                <AbsoluteLayout HorizontalOptions="Center" HeightRequest="50">
-                    <Button x:Name="Start" Text="Iniciar" TextColor="Black" Clicked="OnButton" AbsoluteLayout.LayoutBounds="0.5, 0, 0.5, 1" AbsoluteLayout.LayoutFlags="All" />
-                    <ActivityIndicator x:Name="Loader" IsRunning="False" IsVisible="false" Color="SteelBlue" AbsoluteLayout.LayoutBounds="0.5, 0, 0.5, 1" AbsoluteLayout.LayoutFlags="All" />
-                </AbsoluteLayout>
-            </StackLayout>
-        </ContentView>
-        <ContentView Grid.Row="2">
-
-        </ContentView>
+                    <Label x:Name="lblAlert" HorizontalTextAlignment="Center" TextColor="Black" Margin="5"/>
+                    <AbsoluteLayout HorizontalOptions="Center" HeightRequest="50" WidthRequest="450">
+                        <Button x:Name="Start" Text="Iniciar" TextColor="Black" Clicked="OnButton" AbsoluteLayout.LayoutBounds="0.5, 0, 0.5, 1" AbsoluteLayout.LayoutFlags="All" />
+                        <ActivityIndicator x:Name="Loader" IsRunning="False" IsVisible="false" Color="SteelBlue" AbsoluteLayout.LayoutBounds="0.5, 0, 0.5, 1" AbsoluteLayout.LayoutFlags="All" />
+                    </AbsoluteLayout>
+                    
+                </StackLayout>
+            </Grid>            
+        </ContentView >
 
     </Grid>
 
